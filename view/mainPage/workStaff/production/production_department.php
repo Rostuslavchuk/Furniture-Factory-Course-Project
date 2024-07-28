@@ -8,10 +8,62 @@
 
     <?php require_once('../../../../bootstrap/style.php'); ?>
     <?php require_once('../../../../bootstrap/fontawesome.php'); ?>
-    <link rel="stylesheet" href="style.css">
     <title>Production Department</title>
 </head>
 <body>
+        <style>
+        .none{
+            display: none;
+        }
+        .table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        
+        .text-custom {
+            font-size: 15px;
+        }
+        
+        .text-title {
+            font-size: 24px;
+        }
+        
+        .button_text {
+            font-size: 17px;
+        }
+        
+        .text_table {
+            font-size: 11px;
+        }
+        
+        @media screen and (max-width: 1000px) {
+            .text-custom {
+                font-size: 13px;
+            }
+        
+            .text-title {
+                font-size: 15px;
+            }
+        
+            .button_text {
+                font-size: 14px;
+            }
+        
+            .text_table {
+                font-size: clamp(40%, 70%, 60%);
+            }
+            
+            .table tbody tr td, .table thead tr th{
+                padding: 5px 5px 5px 0;
+            }   
+            .table thead tr th, .table tbody tr td{
+                word-wrap: break-word;
+                white-space: normal;
+            }
+        }
+    </style>
+
 
 <?php
 require_once('../../../../sqlMain.php');
@@ -94,10 +146,10 @@ $sqlMain = new MainSql();
                     <td class="shift_end"><?php echo $row['shift_end'];?></td>
                     <td class="salary"><?php echo $row['salary'];?></td>
                     <td>
-                        <img data-img="<?php echo $row['id']; ?>" src="../../workStaff/production/production/P<?php echo $row['id']; ?>.jpg" style="width: 75px; height: 75px; object-fit: cover;" alt="">
+                        <img data-img="<?php echo $row['id']; ?>" src="../../workStaff/production/production/P<?php echo $row['id']; ?>.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="">
                     </td>
                     <td>
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center flex-wrap">
                             <button data-delete="<?php echo $row['id']; ?>" type="button" class="rounded rounded-end-0 border border-end-0 delete-btn" >
                                 <i class="fa-solid fa-trash"></i>
                             </button>
@@ -108,15 +160,9 @@ $sqlMain = new MainSql();
                     </td>
                 </tr>
             <?php
-            endforeach;
-        else:
+                endforeach;
+                endif;
             ?>
-            <tr>
-                <td colspan="9" class="text-title text-center" >Table is Empty!</td>
-            </tr>
-        <?php
-        endif;
-        ?>
         </tbody>
     </table>
 

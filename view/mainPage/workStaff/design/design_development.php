@@ -8,11 +8,65 @@
 
     <?php require_once('../../../../bootstrap/style.php'); ?>
     <?php require_once('../../../../bootstrap/fontawesome.php'); ?>
-    <link rel="stylesheet" href="style.css">
     <title>Design Department</title>
 </head>
 <body>
-
+    
+    <style>
+        
+        .none{
+            display: none;
+        }
+        
+        .table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        
+        .text-custom {
+            font-size: 15px;
+        }
+        
+        .text-title {
+            font-size: 24px;
+        }
+        
+        .button_text {
+            font-size: 17px;
+        }
+        
+        .text_table {
+            font-size: 11px;
+        }
+        
+        @media screen and (max-width: 1000px) {
+            .text-custom {
+                font-size: 13px;
+            }
+        
+            .text-title {
+                font-size: 15px;
+            }
+        
+            .button_text {
+                font-size: 14px;
+            }
+        
+            .text_table {
+                font-size: clamp(40%, 70%, 60%);
+            }
+            
+            .table tbody tr td, .table thead tr th{
+                padding: 5px 5px 5px 0;
+            }   
+            .table thead tr th, .table body tr td{
+                word-wrap: break-word;
+                white-space: normal;
+            }
+        }
+    </style>
+    
     <?php
         require_once('../../../../sqlMain.php');
         $sqlMain = new MainSql();
@@ -94,10 +148,10 @@
                     <td class="end_date"><?php echo $row['end_date'];?></td>
                     <td class="salary"><?php echo $row['salary'];?></td>
                     <td>
-                        <img data-img="<?php echo $row['id']; ?>" src="../../workStaff/design/dd/DD<?php echo (int)$row['id']; ?>.jpg" style="width: 75px; height: 75px; object-fit: cover;" alt="Employee Image">
+                        <img data-img="<?php echo $row['id']; ?>" src="../../workStaff/design/dd/DD<?php echo (int)$row['id']; ?>.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Employee Image">
                     </td>
                     <td>
-                        <div class="d-flex align-items-center justify-content-center flex-row">
+                        <div class="d-flex align-items-center justify-content-center flex-row flex-wrap">
                             <button data-delete="<?php echo $row['id']; ?>" type="button" class="border border-end-0 rounded rounded-end-0 delete-btn">
                                 <i class='fa fa-trash' style="pointer-events: none;"></i>
                             </button>
@@ -109,17 +163,11 @@
                 </tr>
                 <?php
                     endforeach;
-                    else:
-                ?>
-                <tr>
-                    <td colspan="7" class="text-title text-center" >Table is Empty!</td>
-                </tr>
-                <?php
                     endif;
                 ?>
             </tbody>
         </table>
-
+    
 
         <div class="modal fade" id="add_update_modal">
             <div class="modal-dialog">

@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
         window.location.href = '../main/index.php';
     }
 
+
     searchParams.searchInput.oninput = (e) => {
         e.preventDefault();
 
@@ -25,7 +26,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
             document.querySelectorAll('#table_body tr').forEach(el => {
                 el.classList.remove('none');
             });
+            
             document.getElementById('empty')?.remove();
+            setEmpty(document.querySelectorAll('#table_body tr'));
         }
     }
 
@@ -44,6 +47,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
             checkMatch(response.array);
         }
     }
+
     function checkMatch(array){
         const bodyTable = document.getElementById('table_body');
         const rows = bodyTable.querySelectorAll('tr');
@@ -60,16 +64,24 @@ document.addEventListener('DOMContentLoaded', (e) => {
         });
         checkLength(array);
     }
-    function checkLength(array){
-        if(array.length === 0){
-            document.getElementById('table_body').insertAdjacentHTML('beforeend', `
+
+    function checkLength(array) {
+        const body = document.getElementById('table_body');
+        
+        if (array.length === 0) {
+            if(document.getElementById('empty')){
+                document.getElementById('empty').remove();
+            }
+            
+            body.insertAdjacentHTML("beforeend", `
                 <tr id="empty">
-                    <td colspan="9" class="text-title text-center" >Not Found!</td>
-                </tr>  
+                    <td colspan="9" class="text-title text-center">Not Found!</td>
+                </tr>
             `);
-        }
+   
+        } 
         else {
-            document.getElementById('empty')?.remove();
+            document.getElementById("empty")?.remove();
         }
     }
 
@@ -81,19 +93,18 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     const bodyTable = document.getElementById('table_body');
 
-    setEmpty(bodyTable);
-    function setEmpty(bodyTable){
-        if(bodyTable.querySelectorAll('tr').length === 0){
-            bodyTable.insertAdjacentHTML('beforeend', `
-                <tr id="empty">
-                    <td colspan="8" class="text-center text-title">Table is Empty</td>
+    setEmpty(document.querySelectorAll('#table_body tr'));
+    
+    function setEmpty(bodyTable) {
+        const body = document.getElementById('table_body');
+        if (bodyTable.length === 0) {
+            body.insertAdjacentHTML("beforeend", `
+                <tr id="empty" >
+                    <td colspan="9" class="text-title text-center">Table is Empty!</td>
                 </tr>
             `);
-        }
-        else{
-            if (document.getElementById('empty')){
-                document.getElementById('empty').remove();
-            }
+        } else {
+            document.getElementById("empty")?.remove();
         }
     }
 
@@ -243,7 +254,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
             if (addUpdateModalParams.action === 'add') {
                 alert.success_message.textContent = 'You are successfully added employee!';
                 add(response.data);
-                setEmpty(bodyTable);
+                setEmpty(document.querySelectorAll(`#table_body tr`));
                 bindDataToUpdate(response.data.id);
                 bindForDelete(response.data.id);
             } else {
@@ -273,11 +284,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
         if (response.status) {
             document.querySelector(`#table_body tr[data-id="${parseInt(response.delete_id)}"]`).remove();
-            setEmpty(bodyTable);
+            setEmpty(document.querySelectorAll(`#table_body tr`));
 
             alert.success_message.textContent = 'You are successfully deleted employee!';
 
-            alert.warning_add.style.setProperty('transform', 'translateY(0%)');
+            alert.alert_success.style.setProperty('transform', 'translateY(0%)');
             setTimeout(() => {
                 alert.alert_success.style.setProperty('transform', 'translateY(150%)');
             }, 2000);
@@ -298,7 +309,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
             <td class="end_date" >${data.end_date}</td>
             <td class="salary" >${data.salary}</td>
             <td class="image_employee">
-                <img src="./dd/DD${data.id}.jpg" style="width: 75px; height: 75px; object-fit: cover;" alt="Emploee Image">
+                <img src="./dd/DD${data.id}.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Emploee Image">
             </td>
             <td>
                 <div class="d-flex align-items-center flex-row">
@@ -425,7 +436,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 
     async function data(data){
-        const url = "http://localhost:63342/furniture_factory/view/mainPage/workStaff/design/validate.php";
+        const url = "https://funrniturefactory.userbliss.org/view/mainPage/workStaff/design/validate.php";
 
         return await fetch(url, {
             method: 'POST',

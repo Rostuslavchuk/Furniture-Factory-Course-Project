@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
 
     async function data(data){
-        const url = "http://localhost:63342/furniture_factory/auth/login/validate.php";
+        const url = "https://funrniturefactory.userbliss.org/auth/login/validate.php";
         return await fetch(url, {
             method: 'POST',
             body: data

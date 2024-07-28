@@ -7,10 +7,81 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <?php require_once('../../../../bootstrap/style.php'); ?>
-    <link rel="stylesheet" href="style.css">
     <title>Departments</title>
 </head>
 <body>
+    
+    
+    <style>
+        .none{
+            display: none;
+        }
+        .text-custom{
+            font-size: 15px;
+        }
+        .text_table{
+            font-size: 12px;
+        }
+        .text-title{
+            font-size: 24px;
+        }
+        .button_text{
+            font-size: 17px;
+        }
+        
+        .production_department, .design_department,
+        .hr_department, .it_department, .quality_control_department{
+            display: none;
+        }
+        .production_department:target{
+            display: block;
+        }
+        .design_department:target{
+            display: block;
+        }
+        .hr_department:target{
+            display: block;
+        }
+        .it_department:target{
+            display: block;
+        }
+        .quality_control_department:target{
+            display: block;
+        }
+        
+        .active{
+            background-color: red;
+            border-radius: 20%;
+        }
+        
+        @media screen and (max-width: 789px) {
+            .text-custom{
+                font-size: 13px;
+            }
+            .text-title{
+                font-size: 15px;
+            }
+            .button_text{
+                font-size: 14px;
+            }
+            .text_table{
+                font-size: 10px;
+            }
+            #main, #main_footer{
+                display: flex;
+                flex-direction: column;
+                align-items:center;
+            }
+            #main .card, #main_footer .card{
+                margin-bottom: 10px;
+            }
+            
+        }
+    </style>
+    
+    
+    
+    
     <div class="container-md p-0 d-flex flex-column px-5 gap-3">
 
         <div class="d-flex justify-content-between my-3" >
@@ -18,7 +89,7 @@
             <button class="btn btn-secondary button_text" id="back_btn">Back</button>
         </div>
 
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between" id="main">
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="images/ProductionDepartment.jpg" alt="Production Department">
                 <div class="card-body">
@@ -61,7 +132,8 @@
             </div>
         </div>
 
-        <div class="mt-3" style="display: flex; justify-content: space-around;">
+        <div class="mt-3" style="display: flex; justify-content: space-around;" id="main_footer">
+            
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="images/HrDepartment.jpg" alt="Hr Department">
                 <div class="card-body">
@@ -83,12 +155,13 @@
                     <p class="card-text text-custom">
                         The Quality Control Department at FurnitureCo. conducts thorough
                         inspections and tests to ensure every product meets our high standards
-                        \for quality and safety. They play a crucial role in maintaining the
+                        for quality and safety. They play a crucial role in maintaining the
                         excellence and reliability of our furniture.
                     </p>
                     <a id="quality_control_department" href="#" class="btn btn-secondary button_text">View Staff</a>
                 </div>
             </div>
+            
         </div>
     </div>
 

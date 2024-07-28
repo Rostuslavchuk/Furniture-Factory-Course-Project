@@ -3,10 +3,10 @@
 
 class MainSql{
     private $connection = null;
-    private $username = 'root';
-    private $server = '127.0.0.1';
-    private $password = '';
-    private $db_name = 'furniture_factory';
+    private $username = 'u384927411_Rostym';
+    private $server = 'localhost';
+    private $password = 'Rostyk0676709808@';
+    private $db_name = 'u384927411_furn_factory';
 
     public function __construct()
     {
@@ -19,38 +19,51 @@ class MainSql{
     }
 
     // register
-    public function checkUsernameClients($username){
-        $checkUsername = $this->connection->prepare('SELECT * FROM clients where username = ?');
+    public function checkUsernameClients($username) {
+        $query = 'SELECT * FROM clients WHERE username = ?';
+        $checkUsername = $this->connection->prepare($query);
+        if ($checkUsername === false) {
+            http_response_code(500);
+            die('Prepare failed: ' . $this->connection->error);
+        }
+    
         $checkUsername->bind_param('s', $username);
-
-        if($checkUsername->execute() !== TRUE){
+    
+        if ($checkUsername->execute() !== TRUE) {
             http_response_code(500);
             die('Error while check username!');
         }
-        else{
-            $result = $checkUsername->get_result();
-            $num_row = $result->num_rows;
-            $checkUsername->close();
-
-            return $num_row > 0;
-        }
+    
+        $result = $checkUsername->get_result();
+        $num_rows = $result->num_rows;
+        $checkUsername->close();
+    
+        return $num_rows > 0;
     }
-    public function checkUsernameAdmin($username){
-        $checkAdmin = $this->connection->prepare('SELECT * FROM admins where username = ?');
+    
+    public function checkUsernameAdmin($username) {
+        $query = 'SELECT * FROM admins WHERE username = ?';
+        $checkAdmin = $this->connection->prepare($query);
+        if ($checkAdmin === false) {
+            http_response_code(500);
+            die('Prepare failed: ' . $this->connection->error);
+        }
+    
         $checkAdmin->bind_param('s', $username);
-
-        if($checkAdmin->execute() !== TRUE){
+    
+        if ($checkAdmin->execute() !== TRUE) {
             http_response_code(500);
             die('Error while check username!');
         }
-        else{
-            $result = $checkAdmin->get_result();
-            $num_row = $result->num_rows;
-            $checkAdmin->close();
-
-            return $num_row > 0;
-        }
+    
+        $result = $checkAdmin->get_result();
+        $num_rows = $result->num_rows;
+        $checkAdmin->close();
+    
+        return $num_rows > 0;
     }
+    
+    
     public function addClient($request){
         $username = $request['username'];
         $firstName = $request['firstname'];

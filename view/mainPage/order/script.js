@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 
     async function data(data){
-        const url = "http://localhost:63342/furniture_factory/view/mainPage/order/validate.php";
+        const url = "https://funrniturefactory.userbliss.org/view/mainPage/order/validate.php";
         return await fetch(url, {
             method: 'POST',
             body: JSON.stringify(Object.fromEntries(data)),

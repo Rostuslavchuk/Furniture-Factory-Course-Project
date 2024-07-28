@@ -27,11 +27,47 @@
 
     <?php require_once('../../../bootstrap/style.php'); ?>
 
-    <link rel="stylesheet" href="style.css">
-
     <title>Furniture Factory</title>
 </head>
 <body>
+    
+<style>
+    .none{
+        display: none;
+    }
+    .text-custom{
+        font-size: 15px;
+    }
+    .text_table{
+        font-size: 12px;
+    }
+    .text-title{
+        font-size: 24px;
+    }
+    .button_text{
+        font-size: 17px;
+    }
+    @media screen and (max-width: 789px) {
+        .text-custom{
+            font-size: 13px;
+        }
+        .text-title{
+            font-size: 15px;
+        }
+        .button_text{
+            font-size: 14px;
+        }
+        .text_table{
+            font-size: 10px;
+        }
+        #menu{
+            margin-top: 10px;
+        }
+    }
+    
+</style>    
+    
+    
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-md navbar-light bg-light px-2">
 
@@ -47,10 +83,10 @@
         <div class="collapse navbar-collapse" id="menu">
             <ul class="navbar-nav ms-auto gap-2">
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-decoration-none text-custom" id="work_staff_btn" >Our Work Staff</a>
+                    <button href="#" class="btn text-custom btn-secondary rounded-pill" id="work_staff_btn" >Our Work Staff</button>
                 </li>
                 <li class="nav-item <?php echo $_SESSION['status'] === 'admin' ? 'd-none' : ''; ?>">
-                    <a id="order_link" href="#" class="nav-link text-decoration-none text-custom">Order</a>
+                    <button id="order_link" href="#" class="btn text-custom btn-secondary text-costum rounded-pill">Order</button>
                 </li>
                 <li class="nav-item">
                     <button id='quit_btn' class="btn btn-danger text-button">Quit</button>

@@ -16,11 +16,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if(empty($request['username'])){
         $errors[] = ['code' => 1, 'message' => "You don't fill username field!"];
     }
-    if(!empty($request['username'])){
-        $checkUsername = $sqlMain->checkUsernameClients($request['username']) ||
-            $sqlMain->checkUsernameAdmin($request['username']);
-        if(!$checkUsername){
-            $errors[] = ['code' => 2, 'message' => "This username was exists!"];
+
+
+    if (!empty($request['username'])) {
+        $isUsernameExists = $sqlMain->checkUsernameClients($request['username']) || $sqlMain->checkUsernameAdmin($request['username']);
+        if ($isUsernameExists) {
+            $errors[] = ['code' => 2, 'message' => "This username already exists!"];
         }
     }
 
@@ -59,7 +60,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
     else{
         if($res = $sqlMain->addClient($request)){
-            echo json_encode(['status' => true, 'url' => "http://localhost:63342/furniture_factory/auth/login/login.php"]);
+            echo json_encode(['status' => true, 'url' => "https://funrniturefactory.userbliss.org/auth/login/login.php"]);
         }
     }
 }

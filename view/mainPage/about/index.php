@@ -6,10 +6,57 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?php require_once('../../../bootstrap/style.php'); ?>
-    <link rel="stylesheet" href="style.css">
     <title>About Factory</title>
 </head>
 <body>
+
+    <style>
+        .table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        
+        .text-custom {
+            font-size: 15px;
+        }
+        
+        .text-title {
+            font-size: 24px;
+        }
+        
+        .button_text {
+            font-size: 17px;
+        }
+        
+        .text_table {
+            font-size: 11px;
+        }
+        
+        @media screen and (max-width: 500px) {
+            .text-custom {
+                font-size: 13px;
+            }
+        
+            .text-title {
+                font-size: 15px;
+            }
+        
+            .button_text {
+                font-size: 14px;
+            }
+        
+            .text_table {
+                font-size: clamp(40%, 50%, 60%);
+            }
+            
+            .table tbody tr td,  .table thead tr th{
+                padding: 0 5px 0 0;
+            }
+        }
+
+    </style>
+
 
     <?php
         require_once('../../../sqlMain.php');
@@ -67,50 +114,48 @@
             </div>
             <div class="d-flex flex-column my-2">
                 <span class="text-title">About Our Manufacturing Facility</span>
-                <table class="text_table table table-bordered my-1">
-                    <thead>
-                        <tr>
-                            <th>Factory Name</th>
-                            <th>Factory Description</th>
-                            <th>Factory Location</th>
-                            <th>Data Established</th>
-                            <th>Number Of Employers</th>
-                            <th>Annual Revenue</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            $array = $sqlMain->getData('factory');
-                            if(count($array)):
-                                foreach ($array as $row):
-                        ?>
-                        <tr>
-                            <td><?php echo $row['factory_name']; ?></td>
-                            <td><?php echo $row['factory_description']; ?></td>
-                            <td><?php echo $row['factory_location']; ?></td>
-                            <td><?php echo $row['established_date']; ?></td>
-                            <td>
+                        <table class="text_table table table-bordered my-1">
+                            <thead>
+                                <tr>
+                                    <th>Factory Name</th>
+                                    <th>Factory Description</th>
+                                    <th>Factory Location</th>
+                                    <th>Data Established</th>
+                                    <th>Number Of Employers</th>
+                                    <th>Annual Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <?php
-                                    echo $sqlMain->getSumWorkers();
+                                    $array = $sqlMain->getData('factory');
+                                    if(count($array)):
+                                        foreach ($array as $row):
                                 ?>
-                            </td>
-                            <td><?php echo $row['annual_revenue']; ?></td>
-                        </tr>
-                        <?php
-                            endforeach;
-                            else:
-                        ?>
-                        <tr>
-                            <td colspan="6" class="text-title text-center" >Table is Empty!</td>
-                        </tr>
-                        <?php
-                            endif;
-                        ?>
-                    </tbody>
-                </table>
+                                <tr>
+                                    <td data-label="Factory Name"><?php echo $row['factory_name']; ?></td>
+                                    <td data-label="Factory Description"><?php echo $row['factory_description']; ?></td>
+                                    <td data-label="Factory Location"><?php echo $row['factory_location']; ?></td>
+                                    <td data-label="Data Established"><?php echo $row['established_date']; ?></td>
+                                    <td data-label="Number Of Employers">
+                                        <?php echo $sqlMain->getSumWorkers(); ?>
+                                    </td>
+                                    <td data-label="Annual Revenue"><?php echo $row['annual_revenue']; ?></td>
+                                </tr>
+                                <?php
+                                    endforeach;
+                                    else:
+                                ?>
+                                <tr>
+                                    <td colspan="6" class="text-title text-center">Table is Empty!</td>
+                                </tr>
+                                <?php
+                                    endif;
+                                ?>
+                            </tbody>
+                        </table>
+                </div>
             </div>
         </div>
-    </div>
 <?php require_once('../../../bootstrap/script.php'); ?>
 </body>
 </html>

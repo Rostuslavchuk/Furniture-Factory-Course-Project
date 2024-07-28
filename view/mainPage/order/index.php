@@ -11,6 +11,55 @@
     <title>Order</title>
 </head>
 <body>
+    
+    
+    
+        <style>
+        .table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        
+        .text-custom {
+            font-size: 15px;
+        }
+        
+        .text-title {
+            font-size: 24px;
+        }
+        
+        .button_text {
+            font-size: 17px;
+        }
+        
+        .text_table {
+            font-size: 11px;
+        }
+        
+        @media screen and (max-width: 500px) {
+            .text-custom {
+                font-size: 13px;
+            }
+        
+            .text-title {
+                font-size: 15px;
+            }
+        
+            .button_text {
+                font-size: 14px;
+            }
+        
+            .text_table {
+                font-size: clamp(40%, 50%, 60%);
+            }
+            
+            .table tbody tr td,  .table thead tr th{
+                padding: auto 10px auto 2px;
+            }
+        }
+        </style>
+        
         <?php
             require_once('../../../sqlMain.php');
             $sqlMain = new MainSql();

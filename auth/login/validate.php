@@ -24,19 +24,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if (!$usernameExists) {
             $errors[] = ['code' => 2, 'message' => 'Username does not exist!'];
         }
+        else{
+            if (!empty($request['password'])) {
+                $passwordExists = $sqlMain->checkPasswordClient($request['username'], $request['password']) ||
+                    $sqlMain->checkPasswordAdmin($request['username'], $request['password']);
+
+                if (!$passwordExists) {
+                    $errors[] = ['code' => 4, 'message' => 'Password is incorrect!'];
+                }
+            }
+        }
     }
 
     if(empty($request['password'])){
         $errors[] = ['code' => 3, 'message' => "You don't fill password field!"];
     }
-    if (!empty($request['password'])) {
-        $passwordExists = $sqlMain->checkPasswordClient($request['username'], $request['password']) ||
-            $sqlMain->checkPasswordAdmin($request['username'], $request['password']);
 
-        if (!$passwordExists) {
-            $errors[] = ['code' => 4, 'message' => 'Password is incorrect!'];
-        }
-    }
 
     if(!empty($errors)){
         echo json_encode(['status' => false, 'errors' => $errors]);
@@ -44,10 +47,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
     else{
         if($res = $sqlMain->checkPasswordAdmin($request['username'], $request['password'])){
-            echo json_encode(['status' => true, 'url' => "http://localhost:63342/furniture_factory/view/mainPage/menu/index.php?admin={$request['username']}"]);
+            echo json_encode(['status' => true, 'url' => "https://funrniturefactory.userbliss.org/view/mainPage/menu/index.php?admin={$request['username']}"]);
         }
         if($res = $sqlMain->checkPasswordClient($request['username'], $request['password'])){
-            echo json_encode(['status' => true, 'url' => "http://localhost:63342/furniture_factory/view/mainPage/menu/index.php?client={$request['username']}"]);
+            echo json_encode(['status' => true, 'url' => "https://funrniturefactory.userbliss.org/view/mainPage/menu/index.php?client={$request['username']}"]);
         }
     }
 }

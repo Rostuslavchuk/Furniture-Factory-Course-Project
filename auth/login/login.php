@@ -17,7 +17,7 @@
         <form id="form_login">
             <div class="card-header d-flex justify-content-between">
                 <div class="modal-title text-title">Login</div>
-                <a href="http://localhost:63342/furniture_factory/auth/register/register.php" class="text text-decoration-none text-custom" >Register</a>
+                <a href="https://funrniturefactory.userbliss.org/auth/register/register.php" class="text text-decoration-none text-custom" >Register</a>
             </div>
             <div class="card-body">
                 <div class="my-3" >
